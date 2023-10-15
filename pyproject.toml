@@ -1,0 +1,8 @@
+[tool.pyright]
+pythonVersion = '3.11'
+
+[tool.ruff]
+select = ["E", "F", "W"]
+ignore = ["F401"]
+line-length = 120
+target-version = 'py38'
