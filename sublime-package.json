@@ -1,0 +1,95 @@
+{
+  "contributions": {
+    "settings": [
+      {
+        "file_patterns": [
+          "/LSP-biome.sublime-settings"
+        ],
+        "schema": {
+          "$id": "sublime://settings/LSP-biome",
+          "definitions": {
+            "PluginConfig": {
+              "properties": {
+                "settings": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "biome.lspBin": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "default": null,
+                      "markdownDescription": "The biome lsp server executable. If the path is relative, the workspace folder will be used as base path."
+                    },
+                    "biome.rename": {
+                      "type": [
+                        "boolean",
+                        "null"
+                      ],
+                      "default": null,
+                      "markdownDescription": "Enable/Disable Biome handling renames in the workspace. (Experimental)"
+                    },
+                    "biome.requireConfiguration": {
+                      "type": "boolean",
+                      "default": true,
+                      "markdownDescription": "Disables formatting, linting, and syntax errors for projects without a biome.json file. Enabled by default."
+                    },
+                  }
+                }
+              }
+            }
+          },
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "sublime://settings/LSP-plugin-base"
+            },
+            {
+              "$ref": "sublime://settings/LSP-biome#/definitions/PluginConfig"
+            }
+          ]
+        }
+      },
+      {
+        "file_patterns": [
+          "/*.sublime-project"
+        ],
+        "schema": {
+          "properties": {
+            "settings": {
+              "properties": {
+                "LSP": {
+                  "properties": {
+                    "LSP-biome": {
+                      "$ref": "sublime://settings/LSP-biome#/definitions/PluginConfig"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "file_patterns": [
+          "LSP.sublime-settings"
+        ],
+        "schema": {
+          "properties": {
+            "lsp_code_actions_on_save": {
+              "properties": {
+                "source.organizeImports.biome": {
+                  "type": "boolean"
+                },
+                "quickfix.biome": {
+                  "type": "boolean"
+                },
+              }
+            }
+          }
+        }
+      },
+    ]
+  },
+}

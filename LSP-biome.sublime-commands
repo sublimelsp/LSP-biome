@@ -1,0 +1,17 @@
+[
+    {
+        "caption": "Preferences: LSP-biome Settings",
+        "command": "edit_settings",
+        "args": {
+            "base_file": "${packages}/LSP-biome/LSP-biome.sublime-settings",
+            "default": "// Settings in here override those in \"LSP-biome/LSP-biome.sublime-settings\"\n\n{\n\t$0\n}\n"
+        }
+    },
+    {
+        "caption": "LSP-biome: Organize Imports",
+        "command": "lsp_code_actions",
+        "args": {
+            "only_kinds": ["source.organizeImports.biome"],
+        }
+    },
+]
