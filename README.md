@@ -20,21 +20,25 @@
 Open the configuration file using the Command Palette `Preferences: LSP-biome Settings` command or from the Sublime menu.
 
 > **Note**
-> By default Biome requires a configuration file (`biome.json`) in the root of the project to enable syntax errors, formatting and linting. This can be changed through the `biome.requireConfiguration` option in `Preferences: LSP-biome Settings`.
+> By default Biome requires a configuration file (`biome.json`) in the root of the project to enable syntax errors, formatting and linting. This can be changed through the `biome.requireConfiguration` option in `Preferences: LSP-biome Settings`. See more information on [configuring Biome using the configuration file](https://biomejs.dev/guides/how-biome-works/) in the official documenation.
 
 ## Biome Resolution
 
-The package tries to use Biome from your project's local dependencies (`node_modules/.bin/biome`). We recommend adding Biome as a project dependency to ensure that NPM scripts and the extension use the same Biome version.
+The package tries to use Biome from your project's local dependencies (`node_modules/.bin/biome`). We recommend [adding Biome as a project dependency](https://biomejs.dev/guides/getting-started/) to ensure that NPM scripts and the package use the same Biome version.
 
-You can also explicitly specify the `biome` binary the extension should use by configuring the `biome.lspBin` setting in `LSP-biome` Settings.
+You can also explicitly specify the `biome` binary the package should use by configuring the `biome.lspBin` setting in `LSP-biome` Settings.
 
-If the project has no dependency on Biome and no explicit path is configured, the extension uses the Biome version managed by this package.
+If the project has no dependency on Biome and no explicit path is configured, the package uses the bundled Biome version that it itself manages.
 
 ## Usage
 
+### Linter
+
+See [more information on linting](https://biomejs.dev/linter/) in the official documentation.
+
 ### Format document
 
-To format an entire document, open the _Command Palette_ (<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>) and select `LSP: Format Document`.
+To [format an entire document](https://biomejs.dev/formatter/), open the _Command Palette_ (<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>) and select `LSP: Format Document`.
 
 To format a text range, select the text you want to format, open the _Command Palette_ (<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>), and select `LSP: Format Selection`.
 
@@ -50,16 +54,16 @@ To enable fix on save, open `Preferences: LSP Settings` from the _Command Palett
 }
 ```
 
-### Imports Sorting [Experimental]
+### Imports Sorting
 
-Biome has experimental support for imports sorting through the "Organize Imports" code action. This action is accessible through the _Command Palette_ (<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>) by selecting `LSP-biome: Organize Imports`.
+Biome has support for [imports sorting](https://biomejs.dev/analyzer/#imports-sorting) through the "Organize Imports" code action. This action is accessible through the _Command Palette_ (<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>) by selecting `LSP-biome: Organize Imports`.
 
-Currently, this functionality needs to be explicitly enabled in the `biome.json` configuration file:
+This feature is enabled by default but can be opted-out via `biome.json` configuration file:
 
 ```json
 {
     "organizeImports": {
-        "enabled": true
+        "enabled": false
     }
 }
 ```
@@ -73,3 +77,7 @@ You can add the following to `Preferences: LSP Settings` if you want the action 
     }
 }
 ```
+
+## Additional info
+
+Please follow the [official documenation](https://biomejs.dev/) for more information.
