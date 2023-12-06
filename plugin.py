@@ -5,11 +5,13 @@ from lsp_utils import NpmClientHandler
 import os
 import sublime
 
+BIOME_EXECUTABLE = 'biome.cmd' if sublime.platform == 'windows' else 'biome'
+
 
 class LspBiomePlugin(NpmClientHandler):
     package_name = __package__
     server_directory = 'language-server'
-    server_binary_path = os.path.join(server_directory, 'node_modules', '.bin', 'biome')
+    server_binary_path = os.path.join(server_directory, 'node_modules', '.bin', BIOME_EXECUTABLE)
 
     @classmethod
     def is_allowed_to_start(
@@ -47,7 +49,7 @@ class LspBiomePlugin(NpmClientHandler):
     @classmethod
     def _get_workspace_dependency(cls, workspace_folders: List[WorkspaceFolder]) -> Optional[str]:
         for folder in workspace_folders:
-            binary_path = os.path.join(folder.path, 'node_modules', '.bin', 'biome')
+            binary_path = os.path.join(folder.path, 'node_modules', '.bin', BIOME_EXECUTABLE)
             if os.path.isfile(binary_path):
                 return binary_path
         return None
