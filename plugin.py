@@ -5,7 +5,7 @@ from lsp_utils import NpmClientHandler
 import os
 import sublime
 
-BIOME_EXECUTABLE = 'biome.cmd' if sublime.platform == 'windows' else 'biome'
+BIOME_EXECUTABLE = 'biome.cmd' if sublime.platform() == 'windows' else 'biome'
 
 
 class LspBiomePlugin(NpmClientHandler):
