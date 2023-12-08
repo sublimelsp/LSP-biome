@@ -5,13 +5,21 @@ from lsp_utils import NpmClientHandler
 import os
 import sublime
 
-BIOME_EXECUTABLE = 'biome.cmd' if sublime.platform() == 'windows' else 'biome'
+BIOME_LOCATION = os.path.join('@biomejs', 'biome', 'bin', 'biome')
 
 
 class LspBiomePlugin(NpmClientHandler):
     package_name = __package__
     server_directory = 'language-server'
-    server_binary_path = os.path.join(server_directory, 'node_modules', '.bin', BIOME_EXECUTABLE)
+    server_binary_path = os.path.join(server_directory, 'node_modules', BIOME_LOCATION)
+
+    @classmethod
+    def required_node_version(cls) -> str:
+        return '>=14'
+
+    @classmethod
+    def get_binary_arguments(cls) -> List[str]:
+        return ['lsp-proxy']
 
     @classmethod
     def is_allowed_to_start(
@@ -24,7 +32,9 @@ class LspBiomePlugin(NpmClientHandler):
         biome_path = cls._resolve_biome_path(workspace_folders, configuration)
         if not biome_path:
             return 'LSP-biome could not resolve specified biome binary.'
-        configuration.command = [biome_path, 'lsp-proxy']
+        server = cls.get_server()
+        if server:
+            configuration.command = [server.node_bin, biome_path] + cls.get_binary_arguments()
         return None
 
     @classmethod
@@ -49,7 +59,7 @@ class LspBiomePlugin(NpmClientHandler):
     @classmethod
     def _get_workspace_dependency(cls, workspace_folders: List[WorkspaceFolder]) -> Optional[str]:
         for folder in workspace_folders:
-            binary_path = os.path.join(folder.path, 'node_modules', '.bin', BIOME_EXECUTABLE)
+            binary_path = os.path.join(folder.path, 'node_modules', BIOME_LOCATION)
             if os.path.isfile(binary_path):
                 return binary_path
         return None
