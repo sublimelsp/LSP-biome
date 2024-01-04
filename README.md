@@ -80,4 +80,4 @@ You can add the following to `Preferences: LSP Settings` if you want the action 
 
 ## Additional info
 
-Please follow the [official documenation](https://biomejs.dev/) for more information.
+Please follow the [official documentation](https://biomejs.dev/) for more information.
