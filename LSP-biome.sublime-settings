@@ -4,11 +4,9 @@
         "biome.lspBin": null,
         // Enable/Disable Biome handling renames in the workspace. (Experimental)
         "biome.rename": null,
-        // Disables formatting, linting, and syntax errors for projects without a biome.json file. Enabled by default.
-        "biome.requireConfiguration": true,
     },
     // Also supports source.json but in Sublime Text it's not possible to differentiate JSON and JSONC and enabling
     // Biome for JSONC by default would produce error diagnostics due to comments and trailing commas if those don't
     // have proper "$schema" assigned.
-    "selector": "source.js | source.ts | source.jsx | source.tsx | source.js.jsx | source.js.react | source.ts.react",
+    "selector": "source.js | source.ts | source.jsx | source.tsx | source.js.jsx | source.js.react | source.ts.react | source.json",
 }

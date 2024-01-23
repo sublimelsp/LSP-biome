@@ -30,11 +30,6 @@
                       "default": null,
                       "markdownDescription": "Enable/Disable Biome handling renames in the workspace. (Experimental)"
                     },
-                    "biome.requireConfiguration": {
-                      "type": "boolean",
-                      "default": true,
-                      "markdownDescription": "Disables formatting, linting, and syntax errors for projects without a biome.json file. Enabled by default."
-                    },
                   }
                 }
               }
