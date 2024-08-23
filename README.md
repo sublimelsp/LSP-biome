@@ -19,9 +19,6 @@
 
 Open the configuration file using the Command Palette `Preferences: LSP-biome Settings` command or from the Sublime menu.
 
-> **Note**
-> By default Biome requires a configuration file (`biome.json`) in the root of the project to enable syntax errors, formatting and linting. This can be changed through the `biome.requireConfiguration` option in `Preferences: LSP-biome Settings`. See more information on [configuring Biome using the configuration file](https://biomejs.dev/guides/how-biome-works/) in the official documenation.
-
 ## Biome Resolution
 
 The package tries to use Biome from your project's local dependencies (`node_modules/.bin/biome`). We recommend [adding Biome as a project dependency](https://biomejs.dev/guides/getting-started/) to ensure that NPM scripts and the package use the same Biome version.
