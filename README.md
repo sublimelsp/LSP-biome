@@ -20,7 +20,7 @@
 Open the configuration file using the Command Palette `Preferences: LSP-biome Settings` command or from the Sublime menu.
 
 > **Note**
-> Biome requires a configuration file (`biome.json`) in the root of the project to configure specific rules and its behavior. Refer to [Configure Biome](https://biomejs.dev/guides/configure-biome/) section in the official documentation.
+> Biome requires a configuration file (`biome.json`) in the root of the project to configure specific rules and other behavior. Refer to [Configure Biome](https://biomejs.dev/guides/configure-biome/) section in the official documentation.
 
 ## Biome Resolution
 
