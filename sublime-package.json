@@ -74,6 +74,9 @@
           "properties": {
             "lsp_code_actions_on_save": {
               "properties": {
+                "source.fixAll.biome": {
+                  "type": "boolean"
+                },
                 "source.organizeImports.biome": {
                   "type": "boolean"
                 },
