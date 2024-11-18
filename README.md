@@ -20,7 +20,7 @@
 Open the configuration file using the Command Palette `Preferences: LSP-biome Settings` command or from the Sublime menu.
 
 > **Note**
-> By default Biome requires a configuration file (`biome.json`) in the root of the project to enable syntax errors, formatting and linting. This can be changed through the `biome.requireConfiguration` option in `Preferences: LSP-biome Settings`. See more information on [configuring Biome using the configuration file](https://biomejs.dev/guides/how-biome-works/) in the official documenation.
+> Biome requires a configuration file (`biome.json`) in the root of the project to configure specific rules and other behavior. Refer to [Configure Biome](https://biomejs.dev/guides/configure-biome/) section in the official documentation.
 
 ## Biome Resolution
 
@@ -49,7 +49,7 @@ To enable fix on save, open `Preferences: LSP Settings` from the _Command Palett
 ```json
 {
     "lsp_code_actions_on_save": {
-        "quickfix.biome": true
+        "source.fixAll.biome": true,
     }
 }
 ```
@@ -73,7 +73,7 @@ You can add the following to `Preferences: LSP Settings` if you want the action 
 ```json
 {
     "lsp_code_actions_on_save":{
-        "source.organizeImports.biome": true
+        "source.organizeImports.biome": true,
     }
 }
 ```
