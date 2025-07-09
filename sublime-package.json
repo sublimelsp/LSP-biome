@@ -14,6 +14,14 @@
                   "type": "object",
                   "additionalProperties": false,
                   "properties": {
+                    "biome.configurationPath": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "default": null,
+                      "markdownDescription": "Specifies the path to a custom Biome configuration file within the workspace folder.\n\nIf set to `null`, the extension will fall back to the default Biome configuration files.",
+                    },
                     "biome.lspBin": {
                       "type": [
                         "string",

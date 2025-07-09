@@ -1,5 +1,8 @@
 {
     "settings": {
+        // Specifies the path to a custom Biome configuration file within the workspace folder.
+        // If set to `null`, the extension will fall back to the default Biome configuration files.
+        "biome.configurationPath": null,
         // The biome lsp server executable. If the path is relative, the workspace folder will be used as base path.
         "biome.lspBin": null,
         // Enable/Disable Biome handling renames in the workspace. (Experimental)
