@@ -8,6 +8,8 @@ codecov.yml export-ignore
 docs/ export-ignore
 mkdocs.yml export-ignore
 mypy.ini export-ignore
+pyrighconfig.json export-ignore
+renovate.json export-ignore
 stubs/ export-ignore
 tests/ export-ignore
 tox.ini export-ignore
