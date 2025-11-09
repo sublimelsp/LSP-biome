@@ -88,7 +88,7 @@
                 "source.organizeImports.biome": {
                   "type": "boolean"
                 },
-                "quickfix.biome": {
+                "source.biome": {
                   "type": "boolean"
                 },
               }
