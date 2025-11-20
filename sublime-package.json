@@ -30,13 +30,11 @@
                       "default": null,
                       "markdownDescription": "The biome lsp server executable. If the path is relative, the workspace folder will be used as base path."
                     },
-                    "biome.rename": {
-                      "type": [
-                        "boolean",
-                        "null"
-                      ],
-                      "default": null,
-                      "markdownDescription": "Enable/Disable Biome handling renames in the workspace. (Experimental)"
+                    "biome.requireConfiguration": {
+                      "type": "boolean",
+                      "default": false,
+                      "markdownDescription": "Require a Biome configuration file to enable Biome features in the context to which this setting applies.\n\nIf set to `true`, the extension will not provide Biome features unless a configuration file is present in the workspace folder.",
+                      "scope": "resource"
                     },
                   }
                 }
