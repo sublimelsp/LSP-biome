@@ -10,8 +10,8 @@
         // the workspace folder.
         "biome.requireConfiguration": false,
     },
-    // Also supports source.json but in Sublime Text it's not possible to differentiate JSON and JSONC and enabling
-    // Biome for JSONC by default would produce error diagnostics due to comments and trailing commas if those don't
-    // have proper "$schema" assigned.
-    "selector": "source.js | source.ts | source.jsx | source.tsx | source.js.jsx | source.js.react | source.ts.react",
+    // source.json is explicitly not enabled because in Sublime Text it's not possible to differentiate JSON and JSONC
+    // so when enabling Biome for all json files, the ones that support JSONC would still be opened as JSON and result
+    // in error diagnostics due to comments and trailing commas.
+    "selector": "source.js | source.ts | source.jsx | source.tsx | source.js.jsx | source.js.react | source.ts.react | source.astro | text.html.astro | source.css | source.scss | source.graphql | text.html.basic | text.html.svelte | text.html.vue",
 }
