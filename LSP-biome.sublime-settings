@@ -5,8 +5,10 @@
         "biome.configurationPath": null,
         // The biome lsp server executable. If the path is relative, the workspace folder will be used as base path.
         "biome.lspBin": null,
-        // Enable/Disable Biome handling renames in the workspace. (Experimental)
-        "biome.rename": null,
+        // Require a Biome configuration file to enable Biome features in the context to which this setting applies.
+        // If set to `true`, the extension will not provide Biome features unless a configuration file is present in
+        // the workspace folder.
+        "biome.requireConfiguration": false,
     },
     // Also supports source.json but in Sublime Text it's not possible to differentiate JSON and JSONC and enabling
     // Biome for JSONC by default would produce error diagnostics due to comments and trailing commas if those don't
