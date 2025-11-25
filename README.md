@@ -15,6 +15,10 @@
 2. (Optional but recommended) Install [LSP-file-watcher-chokidar](https://github.com/sublimelsp/LSP-file-watcher-chokidar) via Package Control to enable functionality to notify the server about changes to the `biome.json` configuration file.
 3. Restart Sublime.
 
+## Supported languages
+
+Biome supports multiple languages and the server is enabled for all of those by default. If you want to disable support for particular language, override the `selector` setting in `Preferences: LSP-Biome Settings`.
+
 ## Configuration
 
 Open the configuration file using the Command Palette `Preferences: LSP-biome Settings` command or from the Sublime menu.
