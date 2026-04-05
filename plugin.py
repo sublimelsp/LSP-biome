@@ -1,6 +1,12 @@
-from LSP.plugin import ClientConfig, Response, WorkspaceFolder
+from __future__ import annotations
+
+from LSP.plugin import ClientConfig
+from LSP.plugin import Response
+from LSP.plugin import WorkspaceFolder
 from LSP.plugin.core.protocol import InitializeResult
-from LSP.plugin.core.typing import cast, List, Optional
+from LSP.plugin.core.typing import cast
+from LSP.plugin.core.typing import List
+from LSP.plugin.core.typing import Optional
 from lsp_utils import NpmClientHandler
 import os
 import sublime
