@@ -38,7 +38,7 @@ class LspBiomePlugin(LspPlugin):
             cls.plugin_storage_path,
             ResourcePath('Packages', package_name, 'language-server'),
             BIOME_LOCATION,
-            '>=14.21.3',
+            node_version_requirement='>=14.21.3',
         )
 
     @classmethod
