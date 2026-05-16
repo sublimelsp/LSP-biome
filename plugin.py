@@ -1,19 +1,14 @@
 from __future__ import annotations
 
-from LSP.plugin import ClientConfig
 from LSP.plugin import LspPlugin
 from LSP.plugin import OnPreStartContext
 from LSP.plugin import PluginStartError
-from LSP.plugin import Response
 from LSP.plugin import ServerResponse
 from LSP.plugin import WorkspaceFolder
-from LSP.protocol import InitializeResult
 from lsp_utils import NodeManager
 from pathlib import Path
 from sublime_lib import ResourcePath
-from typing import cast
 from typing_extensions import override
-import os
 
 BIOME_LOCATION = Path('node_modules', '@biomejs', 'biome', 'bin', 'biome')
 

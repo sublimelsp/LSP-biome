@@ -3,15 +3,13 @@ pythonVersion = "3.8"
 typeCheckingMode = "standard"
 
 [tool.ruff]
-select = ["E", "F", "W"]
-ignore = ["F401"]
 line-length = 120
 target-version = 'py38'
 
 [tool.ruff.lint]
 # Enable preview rules.
 preview = true
-select = ["F401", "I"]
+select = ["E", "F", "W", "I"]
 
 [tool.ruff.lint.isort]
 case-sensitive = false
