@@ -3,8 +3,6 @@
         // Specifies the path to a custom Biome configuration file within the workspace folder.
         // If set to `null`, the extension will fall back to the default Biome configuration files.
         "biome.configurationPath": null,
-        // The biome lsp server executable. If the path is relative, the workspace folder will be used as base path.
-        "biome.lspBin": null,
         // Require a Biome configuration file to enable Biome features in the context to which this setting applies.
         // If set to `true`, the extension will not provide Biome features unless a configuration file is present in
         // the workspace folder.
@@ -14,4 +12,15 @@
     // so when enabling Biome for all json files, the ones that support JSONC would still be opened as JSON and result
     // in error diagnostics due to comments and trailing commas.
     "selector": "source.js | source.ts | source.jsx | source.tsx | source.js.jsx | source.js.react | source.ts.react | source.astro | text.html.astro | source.css | source.scss | source.graphql | text.html.basic | text.html.svelte | text.html.vue",
+    // The path to the server binary used to start the language server.
+    // Use `auto` for the package to manage (install/update) the server automatically.
+    // If the path is relative, the workspace folder will be used as base path.
+    // NOTE: Change this instead of directly updating `command` - the `${server_path}` variable is dynamically resolved based on this setting.
+    // WARNING: Override at your own risk - using a custom binary can cause compatibility issues with server settings.
+    "server_path": "auto",
+    "command": [
+        "${node_bin}",
+        "${server_path}",
+        "lsp-proxy"
+    ]
 }

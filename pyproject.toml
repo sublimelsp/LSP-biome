@@ -1,5 +1,6 @@
 [tool.pyright]
 pythonVersion = "3.8"
+typeCheckingMode = "standard"
 
 [tool.ruff]
 select = ["E", "F", "W"]
@@ -19,3 +20,15 @@ from-first = true
 no-sections = true
 order-by-type = false
 required-imports = ["from __future__ import annotations"]
+
+[tool.tox]
+env_list = ["py3"]
+skipsdist = true
+
+[tool.tox.env_run_base]
+deps = [
+    "ruff==0.15.10",
+]
+commands = [
+    ["ruff", "check"],
+]

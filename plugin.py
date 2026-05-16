@@ -1,88 +1,72 @@
 from __future__ import annotations
 
 from LSP.plugin import ClientConfig
+from LSP.plugin import LspPlugin
+from LSP.plugin import OnPreStartContext
+from LSP.plugin import PluginStartError
 from LSP.plugin import Response
+from LSP.plugin import ServerResponse
 from LSP.plugin import WorkspaceFolder
-from LSP.plugin.core.protocol import InitializeResult
-from LSP.plugin.core.typing import cast
-from LSP.plugin.core.typing import List
-from LSP.plugin.core.typing import Optional
-from lsp_utils import NpmClientHandler
+from LSP.protocol import InitializeResult
+from lsp_utils import NodeManager
+from pathlib import Path
+from sublime_lib import ResourcePath
+from typing import cast
+from typing_extensions import override
 import os
-import sublime
 
-BIOME_LOCATION = os.path.join('@biomejs', 'biome', 'bin', 'biome')
+BIOME_LOCATION = Path('node_modules', '@biomejs', 'biome', 'bin', 'biome')
 
 
-class LspBiomePlugin(NpmClientHandler):
-    package_name = __package__
-    server_directory = 'language-server'
-    server_binary_path = os.path.join(server_directory, 'node_modules', BIOME_LOCATION)
+class LspBiomePlugin(LspPlugin):
 
     @classmethod
-    def required_node_version(cls) -> str:
-        return '>=14'
+    @override
+    def on_pre_start_async(cls, context: OnPreStartContext) -> None:
+        server_path: str | None = context.configuration.server_path
+        if server_path and server_path != 'auto':
+            if (biome_path := cls._get_workspace_relative_path(Path(server_path), context.workspace_folders)):
+                context.configuration.server_path = str(biome_path)
+            else:
+                raise PluginStartError(
+                    f'[LSP-biome] Could not resolve biome binary from specified server_path {server_path}.')
+        elif (biome_path := cls._get_workspace_dependency(context.workspace_folders)):
+            context.configuration.server_path = str(biome_path)
+        package_name = cls.plugin_storage_path.name
+        NodeManager.on_pre_start_async(
+            context,
+            cls.plugin_storage_path,
+            ResourcePath('Packages', package_name, 'language-server'),
+            BIOME_LOCATION,
+            '>=14.21.3',
+        )
 
     @classmethod
-    def get_binary_arguments(cls) -> List[str]:
-        return ['lsp-proxy']
-
-    @classmethod
-    def is_allowed_to_start(
-        cls,
-        window: sublime.Window,
-        initiating_view: sublime.View,
-        workspace_folders: List[WorkspaceFolder],
-        configuration: ClientConfig
-    ) -> Optional[str]:
-        biome_path = cls._resolve_biome_path(workspace_folders, configuration)
-        if not biome_path:
-            return 'LSP-biome could not resolve specified biome binary.'
-        server = cls.get_server()
-        if server:
-            configuration.command = [server.node_bin, biome_path] + cls.get_binary_arguments()
-        return None
-
-    @classmethod
-    def _resolve_biome_path(
-        cls, workspace_folders: List[WorkspaceFolder], configuration: ClientConfig
-    ) -> Optional[str]:
-        rome_lsp_bin = configuration.settings.get('biome.lspBin')
-        if isinstance(rome_lsp_bin, str) and rome_lsp_bin:
-            return cls._get_workspace_relative_path(rome_lsp_bin, workspace_folders)
-        return cls._get_workspace_dependency(workspace_folders) or '${server_path}'
-
-    @classmethod
-    def _get_workspace_relative_path(cls, rome_lsp_bin: str, workspace_folders: List[WorkspaceFolder]) -> Optional[str]:
-        if os.path.isabs(rome_lsp_bin):
-            return rome_lsp_bin
+    def _get_workspace_relative_path(cls, lsp_bin: Path, workspace_folders: list[WorkspaceFolder]) -> Path | None:
+        if lsp_bin.is_absolute():
+            return lsp_bin
         for folder in workspace_folders:
-            possible_path = os.path.join(folder.path, rome_lsp_bin)
-            if os.path.isfile(possible_path):
+            if (possible_path := Path(folder.path, lsp_bin)).is_file():
                 return possible_path
         return None
 
     @classmethod
-    def _get_workspace_dependency(cls, workspace_folders: List[WorkspaceFolder]) -> Optional[str]:
+    def _get_workspace_dependency(cls, workspace_folders: list[WorkspaceFolder]) -> Path | None:
         for folder in workspace_folders:
-            binary_path = os.path.join(folder.path, 'node_modules', BIOME_LOCATION)
-            if os.path.isfile(binary_path):
+            if (binary_path := Path(folder.path, BIOME_LOCATION)).is_file():
                 return binary_path
         return None
 
-    def on_server_response_async(self, method: str, response: Response) -> None:
-        if method == 'initialize':
-            initializeResponse = cast(Response[InitializeResult], response)
-            version = initializeResponse.result.get('serverInfo', {}).get('version')
-            if version:
-                session = self.weaksession()
-                if session:
-                    session.set_config_status_async(version)
+    @override
+    def on_server_response_async(self, response: ServerResponse) -> None:
+        if response['method'] == 'initialize':
+            if (session := self.weaksession()) and (version := response['result'].get('serverInfo', {}).get('version')):
+                session.set_config_status_async(version)
 
 
 def plugin_loaded() -> None:
-    LspBiomePlugin.setup()
+    LspBiomePlugin.register()
 
 
 def plugin_unloaded() -> None:
-    LspBiomePlugin.cleanup()
+    LspBiomePlugin.unregister()
