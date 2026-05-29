@@ -18,15 +18,15 @@ class LspBiomePlugin(LspPlugin):
     @classmethod
     @override
     def on_pre_start_async(cls, context: OnPreStartContext) -> None:
-        server_path: str | None = context.configuration.server_path
+        server_path: str | None = context.configuration.root_settings.get('server_path')
         if server_path and server_path != 'auto':
             if (biome_path := cls._get_workspace_relative_path(Path(server_path), context.workspace_folders)):
-                context.configuration.server_path = str(biome_path)
+                context.configuration.root_settings['server_path'] = str(biome_path)
             else:
                 raise PluginStartError(
                     f'[LSP-biome] Could not resolve biome binary from specified server_path {server_path}.')
         elif (biome_path := cls._get_workspace_dependency(context.workspace_folders)):
-            context.configuration.server_path = str(biome_path)
+            context.configuration.root_settings['server_path'] = str(biome_path)
         package_name = cls.plugin_storage_path.name
         NodeManager.on_pre_start_async(
             context,
